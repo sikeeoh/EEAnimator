@@ -1,7 +1,7 @@
 package com.sikeeo.eeanimator;
 
 /**
- * Created by deiphoks on 2016. 1. 5..
+ * Created by sikeeo on 2016. 1. 5..
  */
 public class EEAnimationProperty {
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by deiphoks on 2016. 1. 4..
+ * Created by sikeeo on 2016. 1. 4..
  */
 public class EEAnimationBuilder {
 

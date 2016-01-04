@@ -3,7 +3,7 @@ package com.sikeeo.eeanimator;
 import android.view.View;
 
 /**
- * Created by deiphoks on 2016. 1. 4..
+ * Created by sikeeo on 2016. 1. 4..
  */
 public class EEAnimationListener {
     private EEAnimationListener(){}
