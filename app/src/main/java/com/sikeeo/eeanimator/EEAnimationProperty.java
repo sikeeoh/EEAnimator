@@ -13,4 +13,6 @@ public class EEAnimationProperty {
     public final static String ROTATION = "rotation";
     public final static String ROTATION_X = "rotationX";
     public final static String ROTATION_Y = "rotationY";
+    public final static String BACKGROUND_COLOR = "backgroundColor";
+    public final static String TEXT_COLOR = "textColor";
 }
