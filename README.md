@@ -104,8 +104,18 @@ EEViewAnimator.animate(ivSample1, ivSample2, tvTest)
 ```java
 EEViewAnimator
        .animate(image)
-       .onStart(() -> {})
-       .onStop(() -> {})
+       .onStart(new EEAnimationListener.Start() {
+                    @Override
+                    public void onStart() {
+                        
+                    }
+                })
+        .onStop(new EEAnimationListener.Stop() {
+                    @Override
+                    public void onStop() {
+                        
+                    }
+                })
        .start();
 ```
 
