@@ -1,4 +1,17 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+
+publish {
+    userOrg = 'sikeeo'
+    groupId = 'com.sikeeo.eeanimator'
+    artifactId = 'eeanimator'
+    publishVersion = '1.0.0'
+    desc = 'A sikeeo Android animation library'
+    website = 'https://github.com/sikeeo/EEAnimator'
+    issueTracker = "${website}/issues"
+    repository = "${website}.git"
+}
 
 android {
     compileSdkVersion 23
@@ -8,10 +21,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName VERSION
+        versionName "${LIB_VERSION}"
     }
-}
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
