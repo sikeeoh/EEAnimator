@@ -18,7 +18,6 @@ public class EEViewAnimator {
 
     List<EEAnimationBuilder> eeAnimationList = new ArrayList<>();
     Long duration = 0L;
-    Long startDelay = 0L;
     Interpolator interpolator = null;
 
     AnimatorSet animatorSet;
@@ -65,7 +64,6 @@ public class EEViewAnimator {
         animatorSet.playTogether(animators);
 
         if (duration != null) animatorSet.setDuration(duration);
-        if (startDelay != null) animatorSet.setDuration(duration);
         if (interpolator != null) animatorSet.setInterpolator(interpolator);
 
         animatorSet.addListener(new Animator.AnimatorListener() {
@@ -132,11 +130,6 @@ public class EEViewAnimator {
 
     public EEViewAnimator duration(long duration) {
         this.duration = duration;
-        return this;
-    }
-
-    public EEViewAnimator startDelay(long startDelay) {
-        this.startDelay = startDelay;
         return this;
     }
 

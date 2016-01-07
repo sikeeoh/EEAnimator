@@ -37,38 +37,14 @@ public class EEAnimationBuilder {
         animatorList = new ArrayList<>();
     }
 
-    public EEAnimationBuilder dpValue() {
-        isDp = true;
-        return this;
-    }
-
     public EEAnimationBuilder add(Animator animator) {
         this.animatorList.add(animator);
         return this;
     }
 
-    public float pxToDp(final float px) {
-        return px / views[0].getContext().getResources().getDisplayMetrics().density;
-    }
-
-    public float dpToPx(final float dp) {
-        return dp * views[0].getContext().getResources().getDisplayMetrics().density;
-    }
-
-    public float[] getValues(float... values) {
-        if(!isDp) return values;
-
-        int length = values.length;
-        float[] pxValues = new float[length];
-        for (int i =0; i < length; ++i) {
-            pxValues[i] = dpToPx(values[i]);
-        }
-        return pxValues;
-    }
-
     public EEAnimationBuilder property(String propertyName, float... values) {
-        for(View view : views) {
-            this.animatorList.add(ObjectAnimator.ofFloat(view, propertyName, getValues(values)));
+        for (View view : views) {
+            this.animatorList.add(ObjectAnimator.ofFloat(view, propertyName, values));
         }
         return this;
     }
@@ -100,14 +76,14 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder pivotX(float pivotX) {
-        for(View view : views) {
+        for (View view : views) {
             view.setPivotX(pivotX);
         }
         return this;
     }
 
     public EEAnimationBuilder pivotY(float pivotY) {
-        for(View view : views) {
+        for (View view : views) {
             view.setPivotY(pivotY);
         }
         return this;
@@ -126,8 +102,8 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder backgroundColor(int... colors) {
-        for(View view : views) {
-            if(view instanceof TextView) {
+        for (View view : views) {
+            if (view instanceof TextView) {
                 ObjectAnimator objectAnimator = ObjectAnimator.ofInt(view, EEAnimationProperty.BACKGROUND_COLOR, colors);
                 objectAnimator.setEvaluator(new ArgbEvaluator());
                 this.animatorList.add(objectAnimator);
@@ -138,7 +114,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder textColor(int... colors) {
-        for(View view : views) {
+        for (View view : views) {
             if (view instanceof TextView) {
                 ObjectAnimator objectAnimator = ObjectAnimator.ofInt(view, EEAnimationProperty.TEXT_COLOR, colors);
                 objectAnimator.setEvaluator(new ArgbEvaluator());
@@ -148,9 +124,13 @@ public class EEAnimationBuilder {
         return this;
     }
 
-    public EEAnimationBuilder custom(final EEAnimationListener.Update updateListener, float... values) {
-        for(final View view : views) {
-            ValueAnimator valueAnimator = ValueAnimator.ofFloat(getValues(values));
+    private EEAnimationBuilder custom(final EEAnimationListener.Update updateListener, float... values) {
+        for (final View view : views) {
+            if (values == null) {
+                values[0] = 0f;
+            }
+
+            ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
             if (updateListener != null) {
                 valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     @Override
@@ -165,31 +145,37 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder height(float... height) {
+        if(waitForView == false) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
-                view.getLayoutParams().height = Math.round(value);
+                view.getLayoutParams().height = toPx(Math.round(value));
                 view.requestLayout();
             }
         }, height);
     }
 
     public EEAnimationBuilder width(float... width) {
+        if(waitForView == false) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
-                view.getLayoutParams().width = Math.round(value);
+                view.getLayoutParams().width = toPx(Math.round(value));
                 view.requestLayout();
             }
         }, width);
     }
 
-    public EEAnimationBuilder waitForView() {
+    private int toPx(final float dp) {
+        return (int)(dp * views[0].getContext().getResources().getDisplayMetrics().density);
+    }
+
+    private EEAnimationBuilder waitForView() {
         waitForView = true;
         return this;
     }
 
-    public List<Animator> createAnimators() {
+    protected List<Animator> createAnimators() {
         return animatorList;
     }
 
@@ -203,10 +189,6 @@ public class EEAnimationBuilder {
 
     public EEViewAnimator duration(long duration) {
         return eeViewAnimator.duration(duration);
-    }
-
-    public EEViewAnimator startDelay(long startDelay) {
-        return eeViewAnimator.startDelay(startDelay);
     }
 
     public EEViewAnimator onStart(EEAnimationListener.Start startListener) {
@@ -257,7 +239,7 @@ public class EEAnimationBuilder {
         return views[0];
     }
 
-    public boolean isWaitForView() {
+    protected boolean isWaitForView() {
         return waitForView;
     }
 }
