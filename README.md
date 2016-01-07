@@ -28,7 +28,7 @@ EEViewAnimator.animate(ivSample1, ivSample2, tvTest)
        
 ```
 
-[![gif](gif)]()
+[![gif](https://j.gifs.com/2kvzVz.gif)](https://youtu.be/SHS1neM53Hc)
 
 If you do not use a EEAnimator
 
