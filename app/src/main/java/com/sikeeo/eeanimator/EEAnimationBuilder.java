@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -113,6 +114,10 @@ public class EEAnimationBuilder {
         return this;
     }
 
+    public EEAnimationBuilder backgroundColorRes(int... colorResIds) {
+        return backgroundColor(getColorsByResIds(colorResIds));
+    }
+
     public EEAnimationBuilder textColor(int... colors) {
         for (View view : views) {
             if (view instanceof TextView) {
@@ -124,10 +129,14 @@ public class EEAnimationBuilder {
         return this;
     }
 
+    public EEAnimationBuilder textColorRes(int... colorResIds) {
+        return textColor(getColorsByResIds(colorResIds));
+    }
+
     private EEAnimationBuilder custom(final EEAnimationListener.Update updateListener, float... values) {
         for (final View view : views) {
             if (values == null) {
-                values[0] = 0f;
+                values = new float[1];
             }
 
             ValueAnimator valueAnimator = ValueAnimator.ofFloat(values);
@@ -145,7 +154,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder height(float... height) {
-        if(waitForView == false) waitForView();
+        if(!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -155,8 +164,12 @@ public class EEAnimationBuilder {
         }, height);
     }
 
+    public EEAnimationBuilder heightRes(int... dimenResIds) {
+        return height(getSizesByResIds(dimenResIds));
+    }
+
     public EEAnimationBuilder width(float... width) {
-        if(waitForView == false) waitForView();
+        if(!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -164,6 +177,10 @@ public class EEAnimationBuilder {
                 view.requestLayout();
             }
         }, width);
+    }
+
+    public EEAnimationBuilder widthRes(int... dimenResIds) {
+        return width(getSizesByResIds(dimenResIds));
     }
 
     private int toPx(final float dp) {
@@ -241,5 +258,27 @@ public class EEAnimationBuilder {
 
     protected boolean isWaitForView() {
         return waitForView;
+    }
+
+    private int[] getColorsByResIds(int... resIds) {
+        Context context = views[0].getContext();
+        int[] colors = new int[resIds.length];
+
+        for (int i = 0 ; i < resIds.length ; i++) {
+            colors[i] = context.getResources().getColor(resIds[i]);
+        }
+
+        return colors;
+    }
+
+    private float[] getSizesByResIds(int... resIds) {
+        Context context = views[0].getContext();
+        float[] sizes = new float[resIds.length];
+
+        for (int i = 0 ; i < resIds.length ; i++) {
+            sizes[i] = context.getResources().getDimension(resIds[i]);
+        }
+
+        return sizes;
     }
 }
