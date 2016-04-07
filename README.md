@@ -1,5 +1,5 @@
 # EEAnimator
-A sikeeo Android animation library
+A sikeeo's Android animation library
 =======
 
 [![API](https://img.shields.io/badge/API-14%2B-green.svg)](https://github.com/sikeeo/EEAnimator)
