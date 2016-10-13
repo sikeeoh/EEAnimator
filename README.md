@@ -124,8 +124,8 @@ View Height / Width (dp)
 ```java
 EEViewAnimator
        .animate(view)
-           .width(100,200)
-           .height(50,100)
+           .widthDp(100,200)
+           .heightDp(50,100)
        .start();
 ```
 
@@ -144,7 +144,7 @@ EEViewAnimator
 Add into your **build.gradle**
 
 ```groovy
-compile 'com.sikeeo.eeanimator:eeanimator:1.0.0@aar'
+compile 'com.sikeeo.eeanimator:eeanimator:1.0.1@aar'
 ```
 
 #Community
