@@ -153,7 +153,7 @@ public class EEAnimationBuilder {
         return this;
     }
 
-    public EEAnimationBuilder height(float... height) {
+    public EEAnimationBuilder heightDp(float... height) {
         if(!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
@@ -164,11 +164,22 @@ public class EEAnimationBuilder {
         }, height);
     }
 
-    public EEAnimationBuilder heightRes(int... dimenResIds) {
-        return height(getSizesByResIds(dimenResIds));
+    public EEAnimationBuilder heightPx(float... height) {
+        if(!waitForView) waitForView();
+        return custom(new EEAnimationListener.Update() {
+            @Override
+            public void update(View view, float value) {
+                view.getLayoutParams().height = Math.round(value);
+                view.requestLayout();
+            }
+        }, height);
     }
 
-    public EEAnimationBuilder width(float... width) {
+    public EEAnimationBuilder heightRes(int... dimenResIds) {
+        return heightDp(getSizesByResIds(dimenResIds));
+    }
+
+    public EEAnimationBuilder widthDp(float... width) {
         if(!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
@@ -179,8 +190,19 @@ public class EEAnimationBuilder {
         }, width);
     }
 
+    public EEAnimationBuilder widthPx(float... width) {
+        if(!waitForView) waitForView();
+        return custom(new EEAnimationListener.Update() {
+            @Override
+            public void update(View view, float value) {
+                view.getLayoutParams().width = Math.round(value);
+                view.requestLayout();
+            }
+        }, width);
+    }
+
     public EEAnimationBuilder widthRes(int... dimenResIds) {
-        return width(getSizesByResIds(dimenResIds));
+        return widthDp(getSizesByResIds(dimenResIds));
     }
 
     private int toPx(final float dp) {
