@@ -70,6 +70,80 @@ public class EEAnimationBuilder {
         return property(EEAnimationProperty.SCALE_Y, scaleY);
     }
 
+
+    public EEAnimationBuilder fadeIn() {
+        return alpha(0, 0.25f, 0.5f, 0.75f, 1);
+    }
+
+    public EEAnimationBuilder fadeOut() {
+        return alpha(1, 0.75f, 0.5f, 0.25f, 0);
+    }
+
+    public EEAnimationBuilder flash() {
+        return alpha(1, 0, 1, 0, 1);
+    }
+
+    public EEAnimationBuilder flipHorizontal() {
+        return rotationX(90, -15, 15, 0);
+    }
+
+    public EEAnimationBuilder flipVertical() {
+        return rotationY(90, -15, 15, 0);
+    }
+
+    public EEAnimationBuilder pulse() {
+        return scaleY(1, 1.1f, 1).scaleX(1, 1.1f, 1);
+    }
+
+    public EEAnimationBuilder rollIn() {
+        View target = getView();
+        return alpha(0, 1)
+                .translationX(-(target.getWidth() - target.getPaddingLeft() - target.getPaddingRight()), 0)
+                .rotation(-120, 0);
+    }
+
+    public EEAnimationBuilder rollOut() {
+        View target = getView();
+        return alpha(1, 0)
+                .translationX(0, target.getWidth())
+                .rotation(0, 120);
+    }
+
+    public EEAnimationBuilder rubber() {
+        return scaleX(1, 1.25f, 0.75f, 1.15f, 1).scaleY(1, 0.75f, 1.25f, 0.85f, 1);
+    }
+
+    public EEAnimationBuilder shake() {
+        return translationX(0, 25, -25, 25, -25, 15, -15, 6, -6, 0);
+    }
+
+    public EEAnimationBuilder swing() {
+        return rotation(0, 10, -10, 6, -6, 3, -3, 0);
+    }
+
+    public EEAnimationBuilder tada() {
+        return scaleX(1, 0.9f, 0.9f, 1.1f, 1.1f, 1.1f, 1.1f, 1.1f, 1.1f, 1)
+                .scaleY(1, 0.9f, 0.9f, 1.1f, 1.1f, 1.1f, 1.1f, 1.1f, 1.1f, 1)
+                .rotation(0, -3, -3, 3, -3, 3, -3, 3, -3, 0);
+    }
+
+    public EEAnimationBuilder wobble() {
+        View target = getView();
+        float width = target.getWidth();
+        float one = (float) (width / 100.0);
+        return translationX(0 * one, -25 * one, 20 * one, -15 * one, 10 * one, -5 * one, 0 * one, 0)
+                .rotation(0, -5, 3, -3, 2, -1, 0);
+    }
+
+    public EEAnimationBuilder zoomIn() {
+        return scaleX(0.45f, 1).scaleY(0.45f, 1).alpha(0, 1);
+    }
+
+    public EEAnimationBuilder zoomOut() {
+        return scaleX(1, 0.3f, 0).scaleY(1, 0.3f, 0).alpha(1, 0, 0);
+    }
+
+
     public EEAnimationBuilder scale(float... scale) {
         scaleX(scale);
         scaleY(scale);
@@ -154,7 +228,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder heightDp(float... height) {
-        if(!waitForView) waitForView();
+        if (!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -165,7 +239,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder heightPx(float... height) {
-        if(!waitForView) waitForView();
+        if (!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -180,7 +254,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder widthDp(float... width) {
-        if(!waitForView) waitForView();
+        if (!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -191,7 +265,7 @@ public class EEAnimationBuilder {
     }
 
     public EEAnimationBuilder widthPx(float... width) {
-        if(!waitForView) waitForView();
+        if (!waitForView) waitForView();
         return custom(new EEAnimationListener.Update() {
             @Override
             public void update(View view, float value) {
@@ -206,7 +280,7 @@ public class EEAnimationBuilder {
     }
 
     private int toPx(final float dp) {
-        return (int)(dp * views[0].getContext().getResources().getDisplayMetrics().density);
+        return (int) (dp * views[0].getContext().getResources().getDisplayMetrics().density);
     }
 
     private EEAnimationBuilder waitForView() {
@@ -220,6 +294,10 @@ public class EEAnimationBuilder {
 
     public EEAnimationBuilder nextAnimate(View... views) {
         return eeViewAnimator.nextAnimate(views);
+    }
+
+    public EEAnimationBuilder andAnimate(View... views) {
+        return eeViewAnimator.addAnimationBuilder(views);
     }
 
     public EEViewAnimator start() {
@@ -286,7 +364,7 @@ public class EEAnimationBuilder {
         Context context = views[0].getContext();
         int[] colors = new int[resIds.length];
 
-        for (int i = 0 ; i < resIds.length ; i++) {
+        for (int i = 0; i < resIds.length; i++) {
             colors[i] = context.getResources().getColor(resIds[i]);
         }
 
@@ -297,7 +375,7 @@ public class EEAnimationBuilder {
         Context context = views[0].getContext();
         float[] sizes = new float[resIds.length];
 
-        for (int i = 0 ; i < resIds.length ; i++) {
+        for (int i = 0; i < resIds.length; i++) {
             sizes[i] = context.getResources().getDimension(resIds[i]);
         }
 

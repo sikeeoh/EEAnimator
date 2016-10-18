@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.Interpolator;
 
 import java.util.ArrayList;
