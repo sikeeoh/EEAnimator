@@ -144,7 +144,7 @@ EEViewAnimator
 Add into your **build.gradle**
 
 ```groovy
-compile 'com.sikeeo.eeanimator:eeanimator:1.0.1@aar'
+compile 'com.sikeeo.eeanimator:eeanimator:1.0.2@aar'
 ```
 
 #Community
