@@ -1,8 +1,8 @@
 # EEAnimator
-A sikeeo's Android animation library
+A musubioh's Android animation library
 =======
 
-[![API](https://img.shields.io/badge/API-14%2B-green.svg)](https://github.com/sikeeo/EEAnimator)
+[![API](https://img.shields.io/badge/API-14%2B-green.svg)](https://github.com/musubioh/EEAnimator)
 
 
 #Usage
@@ -149,13 +149,13 @@ compile 'com.sikeeo.eeanimator:eeanimator:1.0.2@aar'
 
 #Community
 
-sikeeo@gmail.com
+musubioh@gmail.com
 
 #License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 sikeeo
+Copyright (c) 2017 musubioh
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
